@@ -1,0 +1,1108 @@
+
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Arsip foto dan dokumentasi kegiatan DPK GMNI UPN Jawa Timur.">
+    <meta property="og:title" content="Album Dokumentasi — DPK GMNI UPN JATIM">
+    <meta property="og:description" content="Merawat ingatan kolektif melalui dokumentasi perjalanan organisasi.">
+
+    <title>Album Dokumentasi — DPK GMNI UPN JATIM</title>
+
+    <link rel="icon" type="image/png" href="/assets/logo-gmni.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        :root {
+            --album-ink: #171717;
+            --album-paper: #f4f1eb;
+            --album-red: #a51f27;
+            --album-muted: #77736d;
+            --album-line: rgba(23, 23, 23, .14);
+        }
+
+        body {
+            background: var(--album-paper);
+            color: var(--album-ink);
+        }
+
+        .albums-page {
+            min-height: 75vh;
+        }
+
+        .albums-hero {
+            padding: clamp(70px, 10vw, 130px) max(6vw, calc((100vw - 1240px)/2)) 56px;
+            background: #191919;
+            color: #f7f4ee;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .albums-hero::after {
+            content: "ARSIP";
+            position: absolute;
+            right: -18px;
+            bottom: -65px;
+            font: clamp(130px, 24vw, 330px)/.8 Anton, sans-serif;
+            color: rgba(255, 255, 255, .045);
+            pointer-events: none;
+        }
+
+        .albums-hero .eyebrow {
+            color: #d9b76b;
+            letter-spacing: .18em;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .albums-hero h1 {
+            font: clamp(54px, 9vw, 112px)/.94 Anton, sans-serif;
+            margin: 20px 0;
+            max-width: 900px;
+        }
+
+        .albums-hero h1 em {
+            color: #d9b76b;
+            font-style: normal;
+        }
+
+        .albums-hero p:last-child {
+            max-width: 560px;
+            color: rgba(255, 255, 255, .68);
+            line-height: 1.8;
+        }
+
+        .albums-main {
+            width: min(1240px, 88%);
+            margin: 0 auto;
+            padding: 54px 0 100px;
+        }
+
+        .albums-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 22px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .albums-toolbar h2 {
+            font: clamp(28px, 4vw, 42px)/1 Anton, sans-serif;
+            margin: 0;
+        }
+
+        .albums-toolbar p {
+            color: var(--album-muted);
+            margin: 10px 0 0;
+            font-size: 13px;
+        }
+
+        .albums-tools {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .albums-search,
+        .albums-filter {
+            border: 1px solid var(--album-line);
+            background: rgba(255, 255, 255, .7);
+            color: var(--album-ink);
+            border-radius: 0;
+            padding: 13px 15px;
+            font: 500 13px Inter, sans-serif;
+            min-height: 44px;
+        }
+
+        .albums-search {
+            width: min(270px, 75vw);
+        }
+
+        .albums-filter {
+            min-width: 155px;
+        }
+
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+        }
+
+        .album-card {
+            min-width: 0;
+            cursor: pointer;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            display: block;
+            width: 100%;
+        }
+
+        .album-cover {
+            aspect-ratio: 4 / 3;
+            background: #ded9cf;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .55s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .album-card:hover .album-cover img {
+            transform: scale(1.045);
+        }
+
+        .album-cover-empty {
+            height: 100%;
+            display: grid;
+            place-items: center;
+            color: #827c71;
+            font: 18px Anton, sans-serif;
+            letter-spacing: .08em;
+        }
+
+        .album-cover-count {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: #171717;
+            color: white;
+            padding: 7px 10px;
+            font-size: 10px;
+            letter-spacing: .08em;
+        }
+
+        .album-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: var(--album-muted);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-top: 17px;
+        }
+
+        .album-card h3 {
+            font: clamp(21px, 2.3vw, 27px)/1.12 Anton, sans-serif;
+            margin: 10px 0 8px;
+            text-transform: uppercase;
+        }
+
+        .album-card .album-description {
+            color: #69655e;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .album-card .album-open {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--album-red);
+            padding-bottom: 5px;
+        }
+
+        .albums-state {
+            grid-column: 1 / -1;
+            padding: 48px 20px;
+            border: 1px solid var(--album-line);
+            text-align: center;
+            color: var(--album-muted);
+            line-height: 1.8;
+        }
+
+        .albums-state strong {
+            display: block;
+            color: var(--album-ink);
+            font: 26px Anton, sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .albums-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .albums-pagination button {
+            border: 1px solid var(--album-line);
+            background: transparent;
+            padding: 10px 15px;
+            cursor: pointer;
+            font: 700 11px Inter, sans-serif;
+        }
+
+        .albums-pagination button[aria-current="page"] {
+            background: #191919;
+            color: white;
+        }
+
+        .album-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            background: rgba(10, 10, 10, .94);
+            color: white;
+            overflow: auto;
+            padding: 28px;
+        }
+
+        .album-modal.is-open {
+            display: block;
+        }
+
+        .album-modal-inner {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+        }
+
+        .album-modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 14px 0 26px;
+        }
+
+        .album-modal-top h2 {
+            font: clamp(30px, 5vw, 56px)/1 Anton, sans-serif;
+            margin: 8px 0;
+            text-transform: uppercase;
+        }
+
+        .album-modal-top p {
+            color: rgba(255, 255, 255, .65);
+            font-size: 12px;
+            line-height: 1.7;
+            max-width: 720px;
+        }
+
+        .album-modal-close {
+            border: 1px solid rgba(255, 255, 255, .35);
+            color: white;
+            background: transparent;
+            width: 44px;
+            height: 44px;
+            font-size: 25px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .album-modal-stats {
+            color: #d9b76b;
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .album-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            padding-bottom: 50px;
+        }
+
+        .album-photo {
+            border: 0;
+            padding: 0;
+            background: #222;
+            cursor: zoom-in;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
+
+        .album-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .35s;
+        }
+
+        .album-photo:hover img {
+            transform: scale(1.04);
+        }
+
+        .photo-viewer {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: rgba(0, 0, 0, .97);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 70px 35px;
+        }
+
+        .photo-viewer.is-open {
+            display: flex;
+        }
+
+        .photo-viewer img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .viewer-close,
+        .viewer-prev,
+        .viewer-next {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, .4);
+            background: rgba(0, 0, 0, .35);
+            color: white;
+            cursor: pointer;
+            width: 46px;
+            height: 46px;
+            font-size: 24px;
+        }
+
+        .viewer-close {
+            top: 18px;
+            right: 18px;
+        }
+
+        .viewer-prev {
+            left: 18px;
+            top: 50%;
+        }
+
+        .viewer-next {
+            right: 18px;
+            top: 50%;
+        }
+
+        .viewer-counter {
+            position: absolute;
+            bottom: 18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255, 255, 255, .7);
+            font-size: 11px;
+        }
+
+        .album-card:focus-visible,
+        .albums-pagination button:focus-visible,
+        .album-modal button:focus-visible,
+        .photo-viewer button:focus-visible {
+            outline: 2px solid #d9b76b;
+            outline-offset: 4px;
+        }
+
+        /* Tema gelap mengikuti sistem style.css: body.dark */
+
+        body.dark {
+            --album-ink: #f5f1e9;
+            --album-paper: #171717;
+            --album-muted: #aaa;
+            --album-line: rgba(255, 255, 255, .17);
+            background: var(--album-paper);
+            color: var(--album-ink);
+        }
+
+        body.dark .albums-main {
+            color: var(--album-ink);
+        }
+
+        body.dark .albums-search,
+        body.dark .albums-filter {
+            background: #242424;
+            color: #f5f1e9;
+            border-color: #414141;
+        }
+
+        body.dark .album-card .album-description {
+            color: #aaa;
+        }
+
+        body.dark .albums-state strong {
+            color: #f5f1e9;
+        }
+
+        body.dark .albums-pagination button {
+            color: #f5f1e9;
+        }
+
+        body.dark .albums-pagination button[aria-current="page"] {
+            background: #d9b76b;
+            color: #171717;
+        }
+
+        @media (max-width: 900px) {
+            .albums-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .albums-main {
+                width: 90%;
+                padding-top: 38px;
+            }
+
+            .albums-grid {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .albums-tools {
+                width: 100%;
+            }
+
+            .albums-search {
+                flex: 1;
+                width: 100%;
+            }
+
+            .albums-filter {
+                flex: 1;
+            }
+
+            .album-photo-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 7px;
+            }
+
+            .album-modal {
+                padding: 14px;
+            }
+
+            .photo-viewer {
+                padding: 60px 12px 45px;
+            }
+
+            .viewer-prev {
+                left: 8px;
+            }
+
+            .viewer-next {
+                right: 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .album-cover img,
+            .album-photo img {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        DEWAN PERWAKILAN KOMISARIAT · UNIVERSITAS PEMBANGUNAN NASIONAL “VETERAN” JAWA TIMUR
+    </div>
+
+    <header class="topbar">
+        <a class="brand" href="/#home">
+            <img src="/assets/logo-gmni.png" alt="Logo GMNI" class="brand-logo">
+            <span>
+                DPK GMNI
+                <small>UPN "VETERAN" JAWA TIMUR</small>
+            </span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Buka navigasi" aria-expanded="false">
+            ☰
+        </button>
+
+        <nav id="nav">
+            <a href="/#about">Tentang</a>
+            <a href="/#organization">Organisasi</a>
+            <a href="/#ideas">Ruang Gagasan</a>
+            <a href="/#activities">Aktivitas</a>
+            <a href="/albums.html" aria-current="page">Album Dokumentasi</a>
+            <a href="/#join">Bergabung</a>
+            <a href="/#login" class="nav-login">Masuk ↗</a>
+        </nav>
+
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Ganti tema">
+            ◐
+        </button>
+    </header>
+
+    <main class="albums-page">
+
+        <section class="albums-hero">
+            <p class="eyebrow">ARSIP VISUAL · DPK GMNI UPN JATIM</p>
+            <h1>MERAWAT<br><em>INGATAN.</em></h1>
+            <p>
+                Setiap kegiatan menyimpan cerita, proses, dan jejak perjuangan.
+                Album dokumentasi ini menjadi ruang untuk melihat kembali perjalanan
+                kolektif DPK GMNI UPN Jawa Timur.
+            </p>
+        </section>
+
+        <section class="albums-main">
+
+            <div class="albums-toolbar">
+                <div>
+                    <h2>ALBUM DOKUMENTASI</h2>
+                    <p id="albumsSummary">Memuat arsip dokumentasi…</p>
+                </div>
+
+                <div class="albums-tools">
+                    <input class="albums-search" id="albumSearch" type="search"
+                        placeholder="Cari album..." aria-label="Cari album">
+
+                    <select class="albums-filter" id="albumCategory" aria-label="Filter kategori">
+                        <option value="">Semua kategori</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="albums-grid" id="albumsGrid" aria-live="polite">
+                <div class="albums-state">
+                    <strong>MEMUAT ARSIP</strong>
+                    Sedang mengambil dokumentasi dari server…
+                </div>
+            </div>
+
+            <div class="albums-pagination" id="albumsPagination"></div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <img src="/assets/logo-gmni.png" alt="Logo GMNI" class="footer-logo">
+            <h2>DPK GMNI<br>UPN JATIM</h2>
+            <p>Ruang gagasan dan gerak kolektif.</p>
+        </div>
+
+        <div>
+            <b>JELAJAHI</b>
+            <a href="/#about">Tentang kami</a>
+            <a href="/#organization">Organisasi</a>
+            <a href="/#ideas">Ruang gagasan</a>
+            <a href="/#activities">Aktivitas</a>
+            <a href="/albums.html">Album dokumentasi</a>
+        </div>
+
+        <div>
+            <b>INFORMASI</b>
+            <a href="/#join">Bergabung</a>
+            <a href="/#privacy">Kebijakan privasi</a>
+        </div>
+
+        <div>
+            <b>AKUN</b>
+            <a href="/#login">Masuk dashboard</a>
+            <button class="footer-theme" id="footerTheme" type="button">Ganti tema ◐</button>
+        </div>
+
+        <div class="copyright">
+            © 2026 DPK GMNI UPN JAWA TIMUR.
+        </div>
+    </footer>
+
+    <section class="album-modal" id="albumModal" aria-hidden="true" aria-label="Detail album">
+        <div class="album-modal-inner">
+
+            <div class="album-modal-top">
+                <div>
+                    <div class="album-modal-stats" id="albumModalMeta"></div>
+                    <h2 id="albumModalTitle">ALBUM</h2>
+                    <p id="albumModalDescription"></p>
+                </div>
+
+                <button class="album-modal-close" id="albumModalClose" type="button"
+                    aria-label="Tutup album">×</button>
+            </div>
+
+            <div class="album-photo-grid" id="albumPhotoGrid"></div>
+        </div>
+    </section>
+
+    <section class="photo-viewer" id="photoViewer" aria-hidden="true" aria-label="Pratinjau foto"
+        role="dialog">
+        <button class="viewer-close" id="viewerClose" type="button" aria-label="Tutup foto">×</button>
+        <button class="viewer-prev" id="viewerPrev" type="button" aria-label="Foto sebelumnya">‹</button>
+        <img id="viewerImage" alt="Foto dokumentasi">
+        <button class="viewer-next" id="viewerNext" type="button" aria-label="Foto berikutnya">›</button>
+        <div class="viewer-counter" id="viewerCounter"></div>
+    </section>
+
+    <script>
+        (() => {
+            'use strict';
+
+            const $ = selector => document.querySelector(selector);
+
+            const grid = $('#albumsGrid');
+            const searchInput = $('#albumSearch');
+            const categorySelect = $('#albumCategory');
+            const summary = $('#albumsSummary');
+            const modal = $('#albumModal');
+            const photoGrid = $('#albumPhotoGrid');
+            const viewer = $('#photoViewer');
+
+            let allAlbums = [];
+            let visibleAlbums = [];
+            let currentPhotos = [];
+            let currentPhotoIndex = 0;
+            let currentPage = 1;
+
+            const pageSize = 9;
+
+            const escapeHTML = value =>
+                String(value ?? '').replace(/[&<>"']/g, char => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                })[char]);
+
+            function formatDate(value) {
+                if (!value) return 'TANGGAL TIDAK TERSEDIA';
+
+                // Menghindari pergeseran tanggal akibat konversi zona waktu.
+                const parts = String(value).slice(0, 10).split('-');
+
+                if (parts.length !== 3) return escapeHTML(value);
+
+                const [year, month, day] = parts.map(Number);
+                const date = new Date(year, month - 1, day);
+
+                if (Number.isNaN(date.getTime())) return escapeHTML(value);
+
+                return new Intl.DateTimeFormat('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }).format(date).toUpperCase();
+            }
+
+            function showState(title, message) {
+                grid.innerHTML = `
+                    <div class="albums-state">
+                        <strong>${escapeHTML(title)}</strong>
+                        ${escapeHTML(message)}
+                    </div>
+                `;
+            }
+
+            async function requestJSON(url) {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    cache: 'no-store'
+                });
+
+                const contentType = response.headers.get('content-type') || '';
+
+                if (!contentType.includes('application/json')) {
+                    throw new Error(
+                        `Server mengirim respons yang bukan JSON (${response.status}). Periksa endpoint API.`
+                    );
+                }
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || `Permintaan gagal (${response.status}).`);
+                }
+
+                return data;
+            }
+
+            function buildCategories() {
+                const categories = [
+                    ...new Set(
+                        allAlbums
+                            .map(album => (album.category || '').trim())
+                            .filter(Boolean)
+                    )
+                ].sort((a, b) => a.localeCompare(b, 'id'));
+
+                categorySelect.innerHTML =
+                    '<option value="">Semua kategori</option>' +
+                    categories.map(category =>
+                        `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`
+                    ).join('');
+            }
+
+            function renderAlbums() {
+                const query = searchInput.value.trim().toLocaleLowerCase('id');
+                const category = categorySelect.value;
+
+                visibleAlbums = allAlbums.filter(album => {
+                    const haystack = [
+                        album.title,
+                        album.description,
+                        album.location,
+                        album.category,
+                        album.event_date
+                    ].join(' ').toLocaleLowerCase('id');
+
+                    return (!query || haystack.includes(query)) &&
+                        (!category || album.category === category);
+                });
+
+                const totalPages = Math.max(1, Math.ceil(visibleAlbums.length / pageSize));
+
+                currentPage = Math.min(currentPage, totalPages);
+
+                const start = (currentPage - 1) * pageSize;
+                const pageAlbums = visibleAlbums.slice(start, start + pageSize);
+
+                summary.textContent =
+                    `${visibleAlbums.length} album ditemukan · ${allAlbums.length} album tersedia`;
+
+                if (!pageAlbums.length) {
+                    showState(
+                        'BELUM ADA ALBUM',
+                        'Coba ubah kata kunci atau pilih kategori lain. Album yang sudah dipublikasikan akan tampil di halaman ini.'
+                    );
+
+                    $('#albumsPagination').innerHTML = '';
+                    return;
+                }
+
+                grid.innerHTML = pageAlbums.map(album => {
+                    const photos = Array.isArray(album.photos) ? album.photos : [];
+                    const cover = photos.find(photo => photo.url)?.url;
+
+                    const image = cover
+                        ? `<img src="${escapeHTML(cover)}"
+                               alt="${escapeHTML(album.title || 'Dokumentasi kegiatan')}"
+                               loading="lazy">`
+                        : '<div class="album-cover-empty">DPK GMNI · DOKUMENTASI</div>';
+
+                    return `
+                        <button class="album-card" type="button"
+                            data-album-id="${Number(album.id)}"
+                            aria-label="Buka album ${escapeHTML(album.title)}">
+
+                            <div class="album-cover">
+                                ${image}
+                                <span class="album-cover-count">${photos.length} FOTO</span>
+                            </div>
+
+                            <div class="album-meta">
+                                <span>${escapeHTML(album.category || 'Dokumentasi')}</span>
+                                <span>${formatDate(album.event_date)}</span>
+                            </div>
+
+                            <h3>${escapeHTML(album.title || 'Tanpa judul')}</h3>
+
+                            <p class="album-description">
+                                ${escapeHTML(album.description || 'Dokumentasi perjalanan DPK GMNI UPN Jawa Timur.')}
+                            </p>
+
+                            <span class="album-open">Lihat album ↗</span>
+                        </button>
+                    `;
+                }).join('');
+
+                renderPagination(totalPages);
+            }
+
+            function renderPagination(totalPages) {
+                const pagination = $('#albumsPagination');
+
+                if (totalPages <= 1) {
+                    pagination.innerHTML = '';
+                    return;
+                }
+
+                let buttons = '';
+
+                for (let page = 1; page <= totalPages; page++) {
+                    buttons += `
+                        <button type="button"
+                            data-page="${page}"
+                            ${page === currentPage ? 'aria-current="page"' : ''}>
+                            ${page}
+                        </button>
+                    `;
+                }
+
+                pagination.innerHTML = buttons;
+            }
+
+            async function openAlbum(albumId) {
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+
+                $('#albumModalTitle').textContent = 'MEMUAT ALBUM…';
+                $('#albumModalDescription').textContent = '';
+                $('#albumModalMeta').textContent = '';
+
+                photoGrid.innerHTML =
+                    '<div class="albums-state">Mengambil foto dokumentasi…</div>';
+
+                try {
+                    // Endpoint detail menghitung kunjungan sesuai implementasi server.
+                    const data = await requestJSON(
+                        `/api/albums/${encodeURIComponent(albumId)}`
+                    );
+
+                    const album = data.item;
+
+                    if (!album) {
+                        throw new Error('Data album tidak ditemukan.');
+                    }
+
+                    currentPhotos = Array.isArray(album.photos)
+                        ? album.photos.filter(photo => photo.url)
+                        : [];
+
+                    $('#albumModalTitle').textContent =
+                        album.title || 'Album dokumentasi';
+
+                    $('#albumModalDescription').textContent =
+                        album.description || '';
+
+                    $('#albumModalMeta').textContent = [
+                        album.category || 'Dokumentasi',
+                        formatDate(album.event_date),
+                        album.location || '',
+                        `${Number(album.view_count || 0).toLocaleString('id-ID')} KUNJUNGAN`,
+                        `${currentPhotos.length} FOTO`
+                    ].filter(Boolean).join(' · ');
+
+                    if (!currentPhotos.length) {
+                        photoGrid.innerHTML = `
+                            <div class="albums-state">
+                                Album ini belum memiliki foto dokumentasi.
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    photoGrid.innerHTML = currentPhotos.map((photo, index) => `
+                        <button class="album-photo" type="button"
+                            data-photo-index="${index}"
+                            aria-label="Lihat foto ${index + 1}">
+                            <img src="${escapeHTML(photo.url)}"
+                                alt="${escapeHTML(photo.original_name || `Foto dokumentasi ${index + 1}`)}"
+                                loading="lazy">
+                        </button>
+                    `).join('');
+
+                } catch (error) {
+                    photoGrid.innerHTML = `
+                        <div class="albums-state">
+                            ${escapeHTML(error.message)}
+                        </div>
+                    `;
+                }
+            }
+
+            function closeAlbum() {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            function showPhoto(index) {
+                if (!currentPhotos.length) return;
+
+                currentPhotoIndex =
+                    (index + currentPhotos.length) % currentPhotos.length;
+
+                const photo = currentPhotos[currentPhotoIndex];
+
+                $('#viewerImage').src = photo.url;
+                $('#viewerImage').alt =
+                    photo.original_name || `Foto ${currentPhotoIndex + 1}`;
+
+                $('#viewerCounter').textContent =
+                    `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
+
+                viewer.classList.add('is-open');
+                viewer.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeViewer() {
+                viewer.classList.remove('is-open');
+                viewer.setAttribute('aria-hidden', 'true');
+                $('#viewerImage').removeAttribute('src');
+            }
+
+            async function loadAlbums() {
+                try {
+                    const data = await requestJSON('/api/albums');
+
+                    allAlbums = Array.isArray(data.items) ? data.items : [];
+
+                    buildCategories();
+                    renderAlbums();
+
+                } catch (error) {
+                    showState(
+                        'ARSIP BELUM DAPAT DIMUAT',
+                        `${error.message} Pastikan server DPK GMNI sedang berjalan, lalu muat ulang halaman.`
+                    );
+
+                    summary.textContent =
+                        'Terjadi kendala saat mengambil data album.';
+                }
+            }
+
+            grid.addEventListener('click', event => {
+                const card = event.target.closest('[data-album-id]');
+
+                if (card) {
+                    openAlbum(card.dataset.albumId);
+                }
+            });
+
+            photoGrid.addEventListener('click', event => {
+                const photo = event.target.closest('[data-photo-index]');
+
+                if (photo) {
+                    showPhoto(Number(photo.dataset.photoIndex));
+                }
+            });
+
+            $('#albumsPagination').addEventListener('click', event => {
+                const button = event.target.closest('[data-page]');
+
+                if (!button) return;
+
+                currentPage = Number(button.dataset.page);
+                renderAlbums();
+
+                document.querySelector('.albums-toolbar').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+
+            searchInput.addEventListener('input', () => {
+                currentPage = 1;
+                renderAlbums();
+            });
+
+            categorySelect.addEventListener('change', () => {
+                currentPage = 1;
+                renderAlbums();
+            });
+
+            $('#albumModalClose').addEventListener('click', closeAlbum);
+
+            modal.addEventListener('click', event => {
+                if (event.target === modal) closeAlbum();
+            });
+
+            $('#viewerClose').addEventListener('click', closeViewer);
+
+            $('#viewerPrev').addEventListener('click', () => {
+                showPhoto(currentPhotoIndex - 1);
+            });
+
+            $('#viewerNext').addEventListener('click', () => {
+                showPhoto(currentPhotoIndex + 1);
+            });
+
+            viewer.addEventListener('click', event => {
+                if (event.target === viewer) closeViewer();
+            });
+
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    if (viewer.classList.contains('is-open')) {
+                        closeViewer();
+                    } else if (modal.classList.contains('is-open')) {
+                        closeAlbum();
+                    }
+                }
+
+                if (viewer.classList.contains('is-open')) {
+                    if (event.key === 'ArrowLeft') {
+                        showPhoto(currentPhotoIndex - 1);
+                    }
+
+                    if (event.key === 'ArrowRight') {
+                        showPhoto(currentPhotoIndex + 1);
+                    }
+                }
+            });
+
+            // Navigasi mobile mengikuti class "open" pada style.css.
+            const menuToggle = $('#menuToggle');
+            const nav = $('#nav');
+
+            menuToggle?.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            nav?.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    nav.classList.remove('open');
+                    menuToggle?.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Tema mengikuti body.dark dan penyimpanan dpk-theme.
+            function applyTheme(theme) {
+                document.body.classList.toggle('dark', theme === 'dark');
+
+                try {
+                    localStorage.setItem('dpk-theme', theme);
+                } catch (_) {}
+            }
+
+            function toggleTheme() {
+                const isDark = document.body.classList.contains('dark');
+                applyTheme(isDark ? 'light' : 'dark');
+            }
+
+            try {
+                const savedTheme = localStorage.getItem('dpk-theme');
+
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                }
+            } catch (_) {}
+
+            $('#themeToggle')?.addEventListener('click', toggleTheme);
+            $('#footerTheme')?.addEventListener('click', toggleTheme);
+
+            loadAlbums();
+
+        })();
+    </script>
+
+</body>
+</html>

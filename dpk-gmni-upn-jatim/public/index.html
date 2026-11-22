@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description"
+        content="DPK GMNI UPN Jawa Timur — ruang gagasan, kaderisasi, aktivitas, dan perjalanan organisasi.">
+
+    <meta property="og:title" content="DPK GMNI UPN JATIM">
+    <meta property="og:description" content="Ruang gagasan dan gerak kolektif.">
+
+    <title>DPK GMNI UPN JATIM - Ruang Gagasan & Gerak</title>
+
+    <link rel="icon" type="image/png" href="/assets/logo-gmni.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Perbaikan area klik tombol pada hero -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hero {
+            isolation: isolate;
+        }
+
+        /* Elemen dekoratif tidak boleh menangkap klik. */
+        .hero-noise,
+        .hero-art,
+        .hero-art *,
+        .hero-index {
+            pointer-events: none !important;
+        }
+
+        /* Pastikan teks dan tombol berada di atas dekorasi hero. */
+        .hero-copy {
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-actions {
+            position: relative;
+            z-index: 20;
+            pointer-events: auto;
+        }
+
+        .hero-actions a {
+            position: relative;
+            z-index: 21;
+            pointer-events: auto !important;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="announcement">
+        DEWAN PENGURUS KOMISARIAT · UNIVERSITAS PEMBANGUNAN NASIONAL “VETERAN” JAWA TIMUR
+    </div>
+
+    <header class="topbar">
+
+        <a class="brand" href="#home">
+            <img src="/assets/logo-gmni.png" alt="Logo GMNI" class="brand-logo">
+
+            <span>
+                DPK GMNI
+                <small>UPN "VETERAN" JAWA TIMUR</small>
+            </span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Buka navigasi">
+            ☰
+        </button>
+
+        <nav id="nav">
+            <a href="#about">Tentang</a>
+            <a href="#organization">Organisasi</a>
+            <a href="#ideas">Ruang Gagasan</a>
+            <a href="#activities">Aktivitas</a>
+            <a href="/albums.html">Album Dokumentasi</a>
+            <a href="#join">Bergabung</a>
+            <a href="#login" class="nav-login">Masuk ↗</a>
+        </nav>
+
+        <button id="themeToggle" class="theme-toggle" aria-label="Ganti tema">
+            ◐
+        </button>
+
+    </header>
+
+    <main id="home">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-noise"></div>
+
+            <div class="hero-copy">
+
+                <p class="eyebrow">
+                    MERDEKA · JAYA · MENANG
+                </p>
+
+                <h1>
+    PEMIKIR PEJUANG<br>
+    <em>PEJUANG PEMIKIR</em>
+</h1>
+                <p class="hero-desc">
+    Gagasan Tak Boleh Diam.<br>
+    Platform digital DPK GMNI UPN Jawa Timur.
+</p>
+
+                <div class="hero-actions">
+
+                    <a class="btn btn-light" href="#about">
+                        Kenali kami <span>↗</span>
+                    </a>
+
+                    <a class="text-link" href="#ideas">
+                        Jelajahi gagasan ↓
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- LOGO GMNI -->
+            <div class="hero-art" aria-label="Logo GMNI dalam lingkaran emas">
+
+                <div class="art-ring"></div>
+
+                <img
+                    src="/assets/logo-gmni.png"
+                    alt="Logo GMNI"
+                    class="hero-logo"
+                >
+
+                <div class="art-caption">
+                    RUANG<br>
+                    KOLEKTIF<br>
+                    2026
+                </div>
+
+                <div class="art-cross">✳</div>
+
+            </div>
+
+            <div class="hero-index">
+                01 / 06
+                <span>JAWA TIMUR - INDONESIA</span>
+            </div>
+
+        </section>
+
+        <!-- TICKER -->
+        <section class="ticker">
+            <div>
+                BERPIKIR MERDEKA ✳
+                BERGERAK BERSAMA ✳
+                BERPIHAK PADA RAKYAT ✳
+                BERPIKIR MERDEKA ✳
+                BERGERAK BERSAMA ✳
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="intro section-pad" id="about">
+
+            <div class="section-kicker">
+                01 / TENTANG KAMI
+            </div>
+
+            <div class="intro-grid">
+
+                <h2>
+                    ORGANISASI<br>
+                    ADALAH <span>RUANG</span><br>
+                    UNTUK BERTUMBUH.
+                </h2>
+
+                <div>
+
+                    <p class="lead">
+                        DPK GMNI UPN Jawa Timur merupakan ruang berproses,
+                        belajar, dan berjuang bagi kader mahasiswa.
+                    </p>
+
+                    <p class="muted">
+                        Website ini menjadi pusat informasi, dokumentasi,
+                        publikasi pemikiran, serta aktivitas organisasi.
+                        Sejarah, visi, misi, dan informasi resmi lainnya
+                        akan dikelola pengurus berdasarkan dokumen
+                        organisasi yang terverifikasi.
+                    </p>
+
+                    <a class="under-link" href="#organization">
+                        Lihat organisasi <b>↗</b>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ORGANIZATION -->
+        <section class="org-section section-pad" id="organization">
+
+            <div class="section-top">
+
+                <div>
+
+                    <div class="section-kicker light-kicker">
+                        02 / ORGANISASI
+                    </div>
+
+                    <h2>
+                        ORANG-ORANG<br>
+                        DI BALIK <i>GERAK.</i>
+                    </h2>
+
+                </div>
+
+                <p>
+                    Struktur kepengurusan terbuka untuk publik.
+                    Kenali susunan pengurus dan anggota berdasarkan
+                    periode aktif.
+                </p>
+
+            </div>
+
+            <div id="structure" class="structure-grid">
+                <div class="loading">
+                    Memuat struktur organisasi…
+                </div>
+            </div>
+
+            <p class="privacy-note">
+                Informasi publik anggota dibatasi pada nama, jurusan,
+                dan angkatan. Data pribadi seperti NIM, email,
+                nomor telepon, dan alamat tidak ditampilkan.
+            </p>
+
+        </section>
+
+        <!-- IDEAS -->
+        <section class="ideas section-pad" id="ideas">
+
+            <div class="section-top">
+
+                <div>
+
+                    <div class="section-kicker">
+                        03 / RUANG GAGASAN
+                    </div>
+
+                    <h2>
+                        PIKIRAN YANG<br>
+                        <span>MENJADI</span> TINDAKAN.
+                    </h2>
+
+                </div>
+
+                <p>
+                    Opini, esai, dan kajian kader tentang sosial,
+                    politik, pendidikan, kebudayaan, dan kehidupan kampus.
+                </p>
+
+            </div>
+
+            <div id="articles" class="article-grid">
+                <div class="loading">
+                    Memuat tulisan…
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ACTIVITIES -->
+        <section class="activity section-pad" id="activities">
+
+            <div class="section-top">
+
+                <div>
+
+                    <div class="section-kicker light-kicker">
+                        04 / AKTIVITAS
+                    </div>
+
+                    <h2>
+                        CATATAN<br>
+                        PERJALANAN.
+                    </h2>
+
+                </div>
+
+                <p>
+                    Ruang untuk merawat ingatan kolektif melalui agenda,
+                    berita, dan dokumentasi kegiatan.
+                </p>
+
+            </div>
+
+            <div id="events" class="event-list">
+                <div class="loading">
+                    Memuat agenda…
+                </div>
+            </div>
+
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats section-pad">
+
+            <div class="section-kicker">
+                05 / DALAM ANGKA
+            </div>
+
+            <div class="stats-grid">
+
+                <div>
+                    <strong id="statMembers">—</strong>
+                    <span>Kader aktif</span>
+                </div>
+
+                <div>
+                    <strong id="statEvents">—</strong>
+                    <span>Kegiatan terlaksana</span>
+                </div>
+
+                <div>
+                    <strong id="statArticles">—</strong>
+                    <span>Tulisan terbit</span>
+                </div>
+
+                <div>
+                    <strong id="statAlbums">—</strong>
+                    <span>Album dokumentasi</span>
+                </div>
+
+            </div>
+
+            <small class="muted">
+                Angka ditarik dari basis data platform.
+            </small>
+
+        </section>
+
+        <!-- JOIN -->
+        <section class="join section-pad" id="join">
+
+            <div class="join-copy">
+
+                <div class="section-kicker light-kicker">
+                    06 / BERGABUNG
+                </div>
+
+                <h2>
+                    PERJALANAN<br>
+                    INI BELUM<br>
+                    <i>SELESAI.</i>
+                </h2>
+
+                <p>
+                    Ingin mengenal lebih jauh dan menjadi bagian dari
+                    proses bersama? Sampaikan ketertarikanmu melalui
+                    formulir ini.
+                </p>
+
+            </div>
+
+            <form id="applyForm" class="form-card" onsubmit="return false;">
+
+                <label>
+                    Nama lengkap
+                    <input name="name" type="text"
+                        placeholder="Masukkan nama lengkap"
+                        autocomplete="name" required>
+                </label>
+
+                <label>
+                    Fakultas
+                    <input name="faculty" type="text"
+                        placeholder="Masukkan nama fakultas">
+                </label>
+
+                <div class="form-row">
+
+                    <label>
+                        Program studi
+                        <input name="major" type="text"
+                            placeholder="Masukkan program studi">
+                    </label>
+
+                    <label>
+                        Angkatan
+                        <input name="cohort" type="text"
+                            placeholder="Contoh: 2024">
+                    </label>
+
+                </div>
+
+                <label>
+                    Email
+                    <input name="email" type="email"
+                        placeholder="nama@email.com"
+                        autocomplete="email" required>
+                </label>
+
+                <label>
+                    Nomor kontak
+                    <input name="phone" type="tel"
+                        placeholder="Contoh: 08xxxxxxxxxx"
+                        autocomplete="tel">
+                </label>
+
+                <label>
+                    Riwayat pendidikan
+                    <input name="education" type="text"
+                        placeholder="Riwayat pendidikan">
+                </label>
+
+                <label>
+                    Pengalaman organisasi
+                    <textarea name="experience" rows="2"
+                        placeholder="Ceritakan pengalaman organisasi jika ada"></textarea>
+                </label>
+
+                <label>
+                    Motivasi bergabung
+                    <textarea name="motivation" rows="3"
+                        placeholder="Ceritakan alasan dan motivasi kamu bergabung"
+                        required></textarea>
+                </label>
+
+                <label class="check">
+
+                    <input type="checkbox" name="privacy_consent" required>
+
+                    Saya telah membaca dan menyetujui
+                    <a href="#privacy">kebijakan privasi</a>.
+
+                </label>
+
+                <button class="btn btn-dark" type="button"
+                    onclick="sendApplicationToWhatsApp()">
+                    Kirim formulir ↗
+                </button>
+
+                <p class="form-message" id="applyMessage" role="status"></p>
+
+            </form>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer id="privacy">
+
+            <div class="footer-brand">
+
+                <img src="/assets/logo-gmni.png"
+                    alt="Logo GMNI" class="footer-logo">
+
+                <h2>
+                    DPK GMNI<br>
+                    UPN JATIM
+                </h2>
+
+                <p>
+                    Ruang gagasan dan gerak kolektif.
+                </p>
+
+            </div>
+
+            <div>
+                <b>JELAJAHI</b>
+                <a href="#about">Tentang kami</a>
+                <a href="#organization">Organisasi</a>
+                <a href="#ideas">Ruang gagasan</a>
+                <a href="#activities">Aktivitas</a>
+                <a href="/albums.html">Album dokumentasi</a>
+            </div>
+
+            <div>
+                <b>INFORMASI</b>
+                <a href="#join">Bergabung</a>
+                <a href="#privacy">Kebijakan privasi</a>
+                <a href="mailto:sekretariat@dpk-gmni.local">
+                    Email resmi (placeholder)
+                </a>
+            </div>
+
+            <div>
+                <b>AKUN</b>
+                <a href="#login">Masuk dashboard</a>
+                <button class="footer-theme" id="footerTheme">
+                    Ganti tema ◐
+                </button>
+            </div>
+
+            <div class="copyright">
+                © 2026 DPK GMNI UPN JAWA TIMUR.
+                Konten contoh perlu diverifikasi pengurus sebelum publikasi.
+            </div>
+
+        </footer>
+
+    </main>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal" id="loginModal" aria-hidden="true">
+
+        <div class="modal-card">
+
+            <button class="modal-close" id="closeLogin" aria-label="Tutup">
+                ×
+            </button>
+
+            <div class="section-kicker">
+                AREA KADER
+            </div>
+
+            <h2>
+                MASUK KE<br>
+                RUANG KERJA.
+            </h2>
+
+            <form id="loginForm">
+
+                <label>
+                    Email
+                    <input name="email" type="email"
+                        autocomplete="username" required>
+                </label>
+
+                <label>
+                    Password
+                    <input name="password" type="password"
+                        autocomplete="current-password" required>
+                </label>
+
+                <button class="btn btn-dark" type="submit">
+                    Masuk ↗
+                </button>
+
+                <p class="form-message" id="loginMessage" role="status"></p>
+
+            </form>
+
+            <p class="muted small">
+                Registrasi kader tersedia melalui admin pada prototipe ini.
+                Akun baru menunggu aktivasi.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script src="/app.js" defer></script>
+
+</body>
+</html>

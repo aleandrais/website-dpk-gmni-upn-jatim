@@ -1,0 +1,91 @@
+
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Artikel — DPK GMNI UPN Jatim</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .article-brand-logo {
+            display: block;
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+    <a class="brand" href="/">
+        <img src="/assets/logo-gmni.png" alt="Logo GMNI" class="brand-logo">
+        <span>DPK GMNI<small>UPN "VETERAN" JAWA TIMUR</small></span>
+    </a>
+    <a href="/">← Beranda</a>
+</header>
+
+    <main class="section-pad" style="max-width:900px;margin:auto">
+        <div id="article" class="loading">Memuat artikel…</div>
+    </main>
+
+    <script>
+        const slug = new URLSearchParams(location.search).get('slug');
+
+        fetch('/api/articles/' + encodeURIComponent(slug || ''))
+            .then(r => r.json())
+            .then(d => {
+                const a = d.item;
+
+                if (!a) {
+                    document.querySelector('#article').textContent = 'Artikel tidak ditemukan.';
+                    return;
+                }
+
+                document.title = a.title + ' — DPK GMNI';
+
+                document.querySelector('#article').innerHTML = `
+                    <div class="section-kicker">
+                        ${a.category} · ${new Date(a.published_at * 1000).toLocaleDateString('id-ID')}
+                    </div>
+
+                    <h1 style="font:clamp(48px,8vw,90px)/.95 var(--display)">
+                        ${esc(a.title)}
+                    </h1>
+
+                    <p class="lead">${esc(a.excerpt)}</p>
+
+                    <p class="muted">Oleh ${esc(a.author || 'Redaksi')}</p>
+
+                    <hr>
+
+                    <div style="font-size:16px;line-height:2;white-space:pre-wrap">
+                        ${esc(a.body)}
+                    </div>
+
+                    <button class="btn btn-dark" style="margin-top:40px"
+                        onclick="navigator.clipboard.writeText(location.href)">
+                        Salin tautan ↗
+                    </button>
+                `;
+            })
+            .catch(() => {
+                document.querySelector('#article').textContent = 'Gagal memuat artikel.';
+            });
+
+        function esc(v) {
+            return String(v ?? '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[c]));
+        }
+    </script>
+</body>
+
+</html>

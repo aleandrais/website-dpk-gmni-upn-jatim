@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Dashboard — DPK GMNI UPN Jatim</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .department-choice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .department-choice {
+            display: block;
+            width: 100%;
+            min-height: 66px;
+            padding: 13px 15px;
+            border: 1px solid rgba(128, 128, 128, .32);
+            border-radius: 9px;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            font: inherit;
+            cursor: pointer;
+            transition: border-color .18s ease, background .18s ease, transform .18s ease;
+        }
+
+        .department-choice:hover:not(:disabled) {
+            border-color: #9b2525;
+            transform: translateY(-1px);
+        }
+
+        .department-choice.is-selected {
+            border-color: #9b2525;
+            background: rgba(155, 37, 37, .09);
+            box-shadow: inset 0 0 0 1px #9b2525;
+        }
+
+        .department-choice:disabled {
+            cursor: not-allowed;
+            opacity: .72;
+        }
+
+        .department-choice small {
+            display: block;
+            margin-top: 4px;
+            opacity: .7;
+            font-size: .82em;
+            line-height: 1.4;
+        }
+
+        .department-choice:focus-visible {
+            outline: 2px solid #9b2525;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a class="brand" href="/">
+            <img src="/assets/logo-gmni.png" alt="Logo GMNI" class="brand-logo">
+            <span>
+                DPK GMNI
+                <small>UPN JAWA TIMUR</small>
+            </span>
+        </a>
+
+        <button class="btn btn-dark" id="logout">Keluar</button>
+    </header>
+
+    <main class="section-pad">
+
+        <div class="section-kicker">DASHBOARD INTERNAL</div>
+
+        <h1 style="font:clamp(48px,8vw,90px)/.95 var(--display)">
+            SELAMAT DATANG.
+        </h1>
+
+        <p id="welcome" class="lead">Memuat akun…</p>
+
+        <div class="stats-grid">
+            <div>
+                <strong id="myPosts">—</strong>
+                <span>Postingan forum</span>
+            </div>
+
+            <div>
+                <strong id="myDrafts">—</strong>
+                <span>Draft tulisan</span>
+            </div>
+        </div>
+
+        <!-- ======================================
+             PENGELOLAAN AGENDA
+        ======================================= -->
+
+        <section id="eventManagement" style="margin-top:55px">
+
+            <h2 style="font:42px var(--display)">
+                PENGELOLAAN AGENDA
+            </h2>
+
+            <p class="lead">
+                Publikasikan dan kelola agenda kegiatan DPK GMNI UPN Jatim.
+            </p>
+
+            <form id="eventForm" class="form-card" style="max-width:700px">
+
+                <input type="hidden" name="id" id="eventId">
+
+                <label>
+                    Nama kegiatan
+                    <input type="text" name="title" maxlength="200"
+                        placeholder="Contoh: Diskusi Ideologi Marhaenisme" required>
+                </label>
+
+                <label>
+                    Deskripsi kegiatan
+                    <textarea name="description" rows="4" maxlength="5000"
+                        placeholder="Jelaskan informasi kegiatan..."></textarea>
+                </label>
+
+                <label>
+                    Bidang penyelenggara
+                    <input type="text" name="category" maxlength="100"
+                        placeholder="Contoh: Departemen Organisasi" value="Kegiatan">
+                </label>
+
+                <label>
+                    Tanggal kegiatan
+                    <input type="date" name="event_date" required>
+                </label>
+
+                <label>
+                    Waktu kegiatan
+                    <input type="time" name="event_time">
+                </label>
+
+                <label>
+                    Lokasi kegiatan
+                    <input type="text" name="location" maxlength="200"
+                        placeholder="Contoh: Sekretariat DPK GMNI UPN Jatim">
+                </label>
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <button type="submit" class="btn btn-dark" id="eventSubmit">
+                        Publikasikan agenda
+                    </button>
+                    <button type="button" class="btn btn-dark" id="cancelEventEdit" hidden>
+                        Batal edit
+                    </button>
+                </div>
+
+                <p id="eventMessage" class="form-message"></p>
+
+                <small style="display:block;color:#999;margin-top:10px">
+                    Agenda yang disimpan akan langsung dipublikasikan pada halaman website.
+                </small>
+
+            </form>
+
+            <h2 style="font:36px var(--display);margin-top:45px">
+                DAFTAR AGENDA
+            </h2>
+
+            <div id="eventsList" class="article-grid">
+                <p>Memuat agenda...</p>
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             PENGELOLAAN ALBUM DOKUMENTASI
+        ======================================= -->
+
+        <section id="albumManagement" hidden style="margin-top:65px">
+            <h2 style="font:42px var(--display)">ALBUM DOKUMENTASI</h2>
+            <p class="lead">Buat album kegiatan, unggah foto, dan kelola dokumentasi yang ditampilkan di website publik.</p>
+
+            <form id="albumForm" class="form-card" style="max-width:700px">
+                <input type="hidden" name="id" id="albumId">
+                <label>Judul album
+                    <input type="text" name="title" maxlength="200" placeholder="Contoh: Dies Natalis GMNI" required>
+                </label>
+                <label>Deskripsi
+                    <textarea name="description" rows="4" maxlength="5000" placeholder="Ceritakan dokumentasi kegiatan..."></textarea>
+                </label>
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <label style="flex:1;min-width:180px">Tanggal kegiatan
+                        <input type="date" name="event_date">
+                    </label>
+                    <label style="flex:1;min-width:180px">Kategori / bidang
+                        <input type="text" name="category" maxlength="100" value="Dokumentasi" placeholder="Contoh: Kaderisasi">
+                    </label>
+                </div>
+                <label>Lokasi kegiatan
+                    <input type="text" name="location" maxlength="200" placeholder="Lokasi kegiatan">
+                </label>
+                <label>Foto dokumentasi
+                    <input type="file" id="albumPhotos" name="photos" accept="image/jpeg,image/png,image/webp" multiple>
+                </label>
+                <small style="display:block;color:#999;margin-top:-8px;margin-bottom:14px">JPG, PNG, atau WEBP. Maksimal 10 foto sekali unggah dan 8 MB per foto.</small>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <button type="submit" class="btn btn-dark" id="albumSubmit">Buat album dan unggah foto</button>
+                    <button type="button" class="btn btn-dark" id="cancelAlbumEdit" hidden>Batal edit</button>
+                </div>
+                <p id="albumMessage" class="form-message" role="status"></p>
+            </form>
+
+            <h2 style="font:36px var(--display);margin-top:45px">DAFTAR ALBUM</h2>
+            <div id="albumsList" class="article-grid"><p>Memuat album...</p></div>
+        </section>
+
+
+        <!-- ======================================
+             PENGELOLAAN STRUKTUR ORGANISASI
+        ======================================= -->
+
+        <section id="structureManagement" hidden style="margin-top:65px">
+
+            <h2 style="font:42px var(--display)">
+                KELOLA STRUKTUR ORGANISASI
+            </h2>
+
+            <p class="lead">
+                Tambah, ubah, dan perbarui susunan pengurus yang ditampilkan di website publik.
+            </p>
+
+            <p id="structureAccessMessage" class="form-message" role="status"></p>
+
+            <div id="periodManagement" style="margin-top:30px">
+
+                <h2 style="font:32px var(--display)">PERIODE KEPENGURUSAN</h2>
+
+                <p id="activePeriodLabel" class="muted">
+                    Memuat periode aktif...
+                </p>
+
+                <form id="periodForm" class="form-card" style="max-width:700px">
+                    <h3>Tambah periode baru</h3>
+
+                    <label>
+                        Nama periode
+                        <input type="text" name="name" maxlength="120"
+                            placeholder="Contoh: Periode 2026–2027" required>
+                    </label>
+
+                    <div style="display:flex;gap:12px;flex-wrap:wrap">
+                        <label style="flex:1;min-width:150px">
+                            Tahun awal
+                            <input type="number" name="start_year" min="1900" max="2200"
+                                placeholder="2026">
+                        </label>
+
+                        <label style="flex:1;min-width:150px">
+                            Tahun akhir
+                            <input type="number" name="end_year" min="1900" max="2200"
+                                placeholder="2027">
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark" id="periodSubmit">
+                        Buat dan aktifkan periode
+                    </button>
+                    <p id="periodMessage" class="form-message"></p>
+                    <small style="display:block;color:#999;margin-top:8px">
+                        Bidang dari periode sebelumnya akan disalin. Data pengurus tidak disalin agar susunan baru dapat diisi ulang.
+                    </small>
+                </form>
+
+                <form id="activatePeriodForm" class="form-card" style="max-width:700px;margin-top:18px">
+                    <label>
+                        Ganti periode yang ditampilkan di website
+                        <select name="period_id" id="periodSelect" required>
+                            <option value="">Pilih periode</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="btn btn-dark">
+                        Aktifkan periode terpilih
+                    </button>
+                    <p id="activatePeriodMessage" class="form-message"></p>
+                </form>
+
+            </div>
+
+            <div id="departmentManagement" style="margin-top:45px">
+
+                <h2 style="font:32px var(--display)">DEPARTEMEN / BIDANG</h2>
+
+                <form id="departmentForm" class="form-card" style="max-width:700px">
+                    <input type="hidden" name="id" id="departmentId">
+
+                    <label>
+                        Nama departemen / bidang
+                        <input type="text" name="name" maxlength="120"
+                            placeholder="Contoh: Departemen Organisasi" required>
+                    </label>
+
+                    <label>
+                        Deskripsi bidang
+                        <textarea name="description" rows="2" maxlength="1000"
+                            placeholder="Penjelasan singkat bidang"></textarea>
+                    </label>
+
+                    <label>
+                        Urutan tampilan
+                        <input type="number" name="sort_order" value="0">
+                    </label>
+
+                    <div style="display:flex;gap:10px;flex-wrap:wrap">
+                        <button type="submit" class="btn btn-dark" id="departmentSubmit">
+                            Tambahkan bidang
+                        </button>
+                        <button type="button" class="btn btn-dark" id="cancelDepartmentEdit" hidden>
+                            Batal edit
+                        </button>
+                    </div>
+
+                    <p id="departmentMessage" class="form-message"></p>
+                </form>
+
+                <div id="departmentsList" class="article-grid" style="margin-top:22px">
+                    <p>Memuat departemen...</p>
+                </div>
+
+            </div>
+
+            <div id="positionManagement" style="margin-top:45px">
+
+                <h2 style="font:32px var(--display)">DATA PENGURUS</h2>
+
+                <form id="positionForm" class="form-card" style="max-width:700px">
+                    <input type="hidden" name="id" id="positionId">
+
+                    <label>
+                        Nama lengkap
+                        <input type="text" name="public_name" maxlength="160"
+                            placeholder="Nama pengurus" required>
+                    </label>
+
+                    <label>
+                        Jabatan
+                        <input type="text" name="title" maxlength="160"
+                            placeholder="Contoh: Ketua Komisariat" required>
+                    </label>
+
+                    <div class="department-picker-field">
+                        <span style="display:block;font-weight:600;margin-bottom:8px">
+                            Departemen / bidang
+                        </span>
+
+                        <input
+                            type="search"
+                            id="positionDepartmentSearch"
+                            placeholder="Ketik nama departemen untuk mencari..."
+                            autocomplete="off"
+                            aria-label="Cari departemen atau bidang"
+                            style="margin-bottom:12px"
+                        >
+
+                        <small style="display:block;color:#999;margin-bottom:10px">
+                            Jika hasil pencarian hanya satu, bidang akan otomatis dipilih. Jika ada beberapa hasil, klik kartu yang sesuai atau tekan Enter untuk memilih hasil pertama.
+                        </small>
+
+                        <input type="hidden" name="department_id" id="positionDepartment" value="">
+
+                        <div
+                            id="positionDepartmentChoices"
+                            class="department-choice-grid"
+                            role="group"
+                            aria-label="Pilih departemen atau bidang"
+                        >
+                            <p class="muted">Memuat pilihan bidang...</p>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:12px;flex-wrap:wrap">
+                        <label style="flex:1;min-width:180px">
+                            Program studi
+                            <input type="text" name="major" maxlength="160"
+                                placeholder="Contoh: Ilmu Komunikasi">
+                        </label>
+
+                        <label style="flex:1;min-width:120px">
+                            Angkatan
+                            <input type="text" name="cohort" maxlength="30"
+                                placeholder="2024">
+                        </label>
+                    </div>
+
+                    <label>
+                        Keterangan singkat (opsional)
+                        <textarea name="bio" rows="2" maxlength="2000"
+                            placeholder="Keterangan tambahan tentang pengurus"></textarea>
+                    </label>
+
+                    <label>
+                        Urutan tampilan
+                        <input type="number" name="sort_order" value="0">
+                    </label>
+
+                    <label>
+                        Foto pengurus
+                        <input type="file" name="photo" id="positionPhoto"
+                            accept="image/jpeg,image/png,image/webp">
+                    </label>
+
+                    <small style="display:block;color:#999;margin-top:-8px;margin-bottom:14px">
+                        JPG, PNG, atau WEBP. Maksimal 8 MB. Foto dapat diganti kapan saja.
+                    </small>
+
+                    <div id="positionPhotoPreviewWrap" hidden style="margin:12px 0">
+                        <img id="positionPhotoPreview" alt="Pratinjau foto pengurus"
+                            style="width:130px;height:160px;object-fit:cover;border-radius:8px;border:1px solid #ddd">
+                        <div style="margin-top:8px">
+                            <button type="button" class="btn btn-dark" id="removePositionPhoto" hidden>
+                                Hapus foto saat ini
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:10px;flex-wrap:wrap">
+                        <button type="submit" class="btn btn-dark" id="positionSubmit">
+                            Tambahkan pengurus
+                        </button>
+                        <button type="button" class="btn btn-dark" id="cancelPositionEdit" hidden>
+                            Batal edit
+                        </button>
+                    </div>
+
+                    <p id="positionMessage" class="form-message"></p>
+
+                    <small style="display:block;color:#999;margin-top:8px">
+                        Pilih “Pimpinan Komisariat” untuk Ketua, Sekretaris, Bendahara, atau jabatan pimpinan yang tidak berada di bawah departemen.
+                    </small>
+                </form>
+
+                <h2 style="font:30px var(--display);margin-top:38px">
+                    SUSUNAN PENGURUS PERIODE AKTIF
+                </h2>
+
+                <div id="positionsList" class="article-grid">
+                    <p>Memuat data pengurus...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             PENGATURAN WEBSITE
+        ======================================= -->
+
+        <section id="websiteSettings" hidden style="margin-top:65px;margin-bottom:65px">
+            <h2 style="font:42px var(--display)">PENGATURAN WEBSITE</h2>
+            <p class="lead">Pengaturan tujuan WhatsApp untuk formulir calon anggota website publik.</p>
+                    <section id="whatsappSettings" hidden style="margin-bottom:55px">
+            <h2 style="font:36px var(--display)">PENGATURAN WHATSAPP PENDAFTARAN</h2>
+            <p class="lead">
+                Atur tujuan WhatsApp yang akan dibuka setelah pengunjung mengirim formulir calon anggota.
+                Perubahan ini tidak memerlukan pengeditan kode website.
+            </p>
+
+            <form id="whatsappSettingsForm" class="form-card" style="max-width:700px">
+                <label>
+                    Link tujuan WhatsApp
+                    <input
+                        type="url"
+                        id="applicationWhatsappUrl"
+                        name="application_whatsapp_url"
+                        maxlength="500"
+                        placeholder="https://chat.whatsapp.com/... atau https://wa.me/62..."
+                        autocomplete="url"
+                    >
+                </label>
+
+                <small style="display:block;color:#999;margin-top:-8px;margin-bottom:14px">
+                    Bisa menggunakan link undangan grup (chat.whatsapp.com) atau link chat pribadi (wa.me / api.whatsapp.com).
+                    Link yang disimpan tidak akan membawa pesan otomatis.
+                    Kosongkan kolom untuk menonaktifkan tujuan WhatsApp sementara.
+                </small>
+
+                <button type="submit" class="btn btn-dark" id="saveWhatsappSettings">
+                    Simpan link WhatsApp
+                </button>
+                <p id="whatsappSettingsMessage" class="form-message" role="status"></p>
+            </form>
+        </section>
+        </section>
+
+
+        <!-- ======================================
+             PENGELOLAAN ARTIKEL DAN ADMIN
+        ======================================= -->
+
+        <section id="adminArea" hidden style="margin-top:65px">
+
+
+
+            
+
+            <h2 style="font:42px var(--display)">
+                PENGELOLAAN ARTIKEL
+            </h2>
+
+            <form id="articleForm" class="form-card" style="max-width:700px">
+
+                <label>
+                    Judul
+                    <input name="title" required>
+                </label>
+
+                <label>
+                    Ringkasan
+                    <textarea name="excerpt" rows="2"></textarea>
+                </label>
+
+                <label>
+                    Kategori
+                    <input name="category" value="Opini">
+                </label>
+
+                <label>
+                    Isi tulisan
+                    <textarea name="body" rows="8" required></textarea>
+                </label>
+
+                <label>
+                    Status
+                    <select name="status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Terbitkan</option>
+                    </select>
+                </label>
+
+                <button class="btn btn-dark">
+                    Simpan artikel
+                </button>
+
+                <p id="articleMessage" class="form-message"></p>
+
+            </form>
+
+            <h2 style="font:36px var(--display);margin-top:45px">
+                PENDAFTAR CALON ANGGOTA
+            </h2>
+
+            <div id="applications" class="article-grid"></div>
+
+            <section id="accountManagement" hidden>
+
+                <h2 style="font:36px var(--display);margin-top:45px">
+                    AKUN KADER
+                </h2>
+
+                <div id="accounts" class="article-grid"></div>
+
+            </section>
+
+        </section>
+
+        <p style="margin-top:50px">
+            <a class="under-link" href="/">
+                ← Kembali ke website publik
+            </a>
+        </p>
+
+    </main>
+
+    <script src="/dashboard.js" defer></script>
+
+</body>
+</html>
